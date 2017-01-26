@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -83,19 +84,35 @@ public class HiloCifradoServidor implements Runnable{
 
     String generarPass(){
         String p="";
-        int vuelta=0;
+        int vuelta=1;
         
         while(vuelta<=10){
-                //1ºvuelta simbolo
+                if(vuelta==1){//1ºvuelta simbolo
+                int r = (int) Math.random()*(38-35)+35;
+                char letra = (char)r;
+                p+=letra;
+                }
                 
                 //2ºvuelta numero
-                
-                //3º numeros restantes
+                if(vuelta==2){ 
+                    int r = (int) Math.random()*(57-48)+48;
+                     char letra = (char)r;
+                     p+=letra;
+                }
+                if(vuelta>=3){//3º numeros restantes
+                    int r = (int) Math.random()*(122-65)+65;
+                    while(r>=91 || r<=96){
+                        r = (int) Math.random()*(122-65)+65;
+                    }
+                     char letra = (char)r;
+                     p+=letra;
+                }
+            }
+        
+        return p;
         }
 
-        
-        return  p;  
-    }
+    
 //------------------------------------------------------------------------------
 public void generarCliente(){
         String nombre="Cliente["+id_cli+"]", pass;      
